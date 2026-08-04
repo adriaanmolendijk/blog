@@ -6,7 +6,7 @@ This post is an introduction to Post-Quantum Cryptography (PQC) for Software as 
 We will address the following questions
 - What is Post-Quantum Cryptography?
 - Why should we care about Post-Quantum Cryptography?
-- What does the academic and industry say about Post-Quantum Cryptography?
+- What does academic and industry say about Post-Quantum Cryptography?
 - How are we SaaS providers affected by Post-Quantum Cryptography?
 - What's next for Post-Quantum Cryptography in the SaaS industry?
 
@@ -60,7 +60,7 @@ Lastly, compliance and regulatory requirements may leave us with little choice b
 In [executive order 14412](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/), the White House has mandated that all high impact systems use PQC for key establishment by December 31, 2030.
 In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would stop certifying security products that lack quantum-resistant encryption, a move that will force government bodies and critical operators to shift away from older systems (see references at the end).
 
-## What does the academic and industry say about Post-Quantum Cryptography?
+## What does academic and industry say about Post-Quantum Cryptography?
 
 ### Industry leaders and standards
 
@@ -191,9 +191,23 @@ In the common case, the entire authentication path in an MTC handshake is one si
 To conclude: this is a massive design change in the way certificates are issued and verified, and it is a necessary change to accommodate the larger sizes of post-quantum signatures.
 Let's Encrypt is targeting late 2026 for a staging environment that issues MTCs, and 2027 for a production-ready environment.
 
+Interestingly enough, other certificate authorities like ssl(.)com have much no such commitments as of time of writing.
+
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
 
+We can share the following conclusions for SaaS providers
+- Symmetric encryption algorithms are not affected by quantum computing, so we can continue using them as before.
+- Asymmetric encryption algorithms are highly affected by quantum computing, so we will need to migrate to post-quantum safe alternatives for key exchanges and digital signatures.
+- For cloud based SaaS providers, the cloud service provider used to host the SaaS product will be the biggest dependency for PQC adoption, as they will be the ones to provide the post-quantum safe alternatives for key exchanges and digital signatures. The biggest cloud providers already committed to timelines for post-quantum safety, such as Microsoft [committing](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/) to transition products and services to PQC by 2029.
+- Microsoft provides a customer strategy for cryptographic posture management in [this blog](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/). They introduce the concept of a "cryptographic inventory", which is a living catalog of all the cryptographic assets and mechanisms in use across your organization. This includes certificates and keys, protocols and cipher suites, cryptographic libraries and more. SaaS providers should start initial inventorization to get insights into their cryptographic inventory. This allows service providers to identify critical gaps such as ssl(.)com service provider not having committed to a PQC timeline. 
+
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
+
+We're going to see continued rollout of `X25519MLKEM768` exchange to edge services, first phased deployments of Merkle Tree Certificates, and continued adoption of post-quantum safe encryption algorithms by cloud providers and SaaS providers.
+
+For us security professionals and service providers it is incumbent to keep an eye on the latest developments in the field, and to start planning for migration to post-quantum safe alternatives for the broken cryptographic algorithms.
+
+There are many changes ahead making it hard to predict what, say, the next 5-10 years will look like. But we can point to clear standards set by NIST: ML-DSA and ML-KEM are the post-quantum safe alternatives for digital signatures and key exchanges, respectively.
 
 ## References
 
@@ -221,3 +235,5 @@ Let's Encrypt is targeting late 2026 for a staging environment that issues MTCs,
 22. [https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276)
 23. [https://letsencrypt.org/2026/06/03/pq-certs](https://letsencrypt.org/2026/06/03/pq-certs)
 24. [https://blog.cloudflare.com/bootstrap-mtc/](https://blog.cloudflare.com/bootstrap-mtc/)
+25. [https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/)
+26. [https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/)
