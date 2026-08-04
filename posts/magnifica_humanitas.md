@@ -1,5 +1,7 @@
 # What Magnifica Humanitas Says to Security Professionals
 
+> **Last updated:** August 4, 2026
+
 ## What is Magnifica Humanitas?
 
 It has been almost two months since Pope Leo signed Magnifica Humanitas at Saint Peter's.
