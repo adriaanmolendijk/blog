@@ -183,7 +183,7 @@ We can share the following conclusions for SaaS providers:
 
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
 
-We're going to see continued rollout of `X25519MLKEM768` exchange to edge services, first phased deployments of Merkle Tree Certificates, and continued adoption of post-quantum safe encryption algorithms by cloud providers and SaaS providers.
+We're going to see continued rollout of `X25519MLKEM768` key exchange to edge services, first phased deployments of Merkle Tree Certificates, and continued adoption of post-quantum safe encryption algorithms by cloud providers and SaaS providers.
 
 For us security professionals and service providers it is incumbent to keep an eye on the latest developments in the field, and to start planning for migration to post-quantum safe alternatives for the broken cryptographic algorithms.
 
