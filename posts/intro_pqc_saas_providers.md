@@ -1,5 +1,7 @@
 # An Introduction to Post-Quantum Cryptography for SaaS Providers
 
+> **Last updated:** August 4, 2026
+
 This post is an introduction to Post-Quantum Cryptography (PQC) for Software as a Service (SaaS) providers.
 We will address the following questions
 - What is Post-Quantum Cryptography?
