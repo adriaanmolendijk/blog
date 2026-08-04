@@ -1,6 +1,6 @@
 # What Magnifica Humanitas Says to Security Professionals
 
-> **Last updated:** August 4, 2026
+> **Last updated:** July 9, 2026
 
 ## What is Magnifica Humanitas?
 
