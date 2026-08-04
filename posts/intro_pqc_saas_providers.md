@@ -173,6 +173,23 @@ In simple terms, hybrid key exchange involves using two different key agreement 
 As explained very well in this [article](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276), the beauty of this hybrid approach is its resilience.
 The resulting connection remains secure as long as at least one of the component algorithms remains unbroken. If an unforeseen flaw is found in the new PQC algorithm, the classical algorithm still provides robust protection. Conversely, when quantum computers eventually break the classical algorithm, the PQC component will ensure your data remains secure. This "belt and suspenders" method allows for the early adoption of quantum-resistant security while retaining the proven guarantees of classical cryptography.
 
+### How is Web PKI affected by Post-Quantum Cryptography?
+
+In the previous subsections we discussed how PQC affects symmetric and asymmetric cryptography, but we didn't discuss how it affects the Web PKI (Public Key Infrastructure).
+
+This domain could arguably be the most affected by PQC, as web PKI is one of the trickiest places to deploy post-quantum signatures. The reason is size.
+As Let's Encrypt explains in their vision on post-quantum future in [this post](https://letsencrypt.org/2026/06/03/pq-certs), ML-DSA-44, one of the smaller NIST standardized post-quantum signature schemes, has a signature roughly 2,420 bytes long. The algorithms used in the Web PKI today are much smaller.
+Public keys are bigger as well: 1,312 bytes for ML-DSA-44, 256 bytes for RSA-2048, and 64 bytes for ECDSA-P256.
+A typical Web PKI handshake today carries five signatures and two public keys.
+Replacing those with ML-DSA equivalents would push a single TLS handshake well past 10 kilobytes.
+Cloudflare’s research has shown that, at that scale, a meaningful share of TLS connections fail on real-world networks, and the rest get slower.
+
+What Let's Encrypt will do, is that they will move to a new design known as ["Merkle Tree Certificates" (MTCS)](https://blog.cloudflare.com/bootstrap-mtc/).
+Instead of issuing certificates one at a time and signing each one individually, an MTC certificate authority issues certificates in batches, with a single signature covering the entire batch. Browsers stay up to date on those batch signatures (called “landmarks”) separately from the TLS handshake.
+In the common case, the entire authentication path in an MTC handshake is one signature, one public key, and one inclusion proof. That’s smaller than today’s Web PKI handshake, even though MTCs use post-quantum algorithms. The other case is the “standalone” form. It uses slightly larger handshakes as a fallback when a client’s landmark is out of date.
+
+To conclude: this is a massive design change in the way certificates are issued and verified, and it is a necessary change to accommodate the larger sizes of post-quantum signatures.
+Let's Encrypt is targeting late 2026 for a staging environment that issues MTCs, and 2027 for a production-ready environment.
 
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
 
@@ -202,4 +219,5 @@ The resulting connection remains secure as long as at least one of the component
 20. [https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography)
 21. [https://en.wikipedia.org/wiki/Curve25519](https://en.wikipedia.org/wiki/Curve25519)
 22. [https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276)
-23. 
+23. [https://letsencrypt.org/2026/06/03/pq-certs](https://letsencrypt.org/2026/06/03/pq-certs)
+24. [https://blog.cloudflare.com/bootstrap-mtc/](https://blog.cloudflare.com/bootstrap-mtc/)
