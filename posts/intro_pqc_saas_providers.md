@@ -3,7 +3,7 @@
 > **Last updated:** August 4, 2026
 
 This post is an introduction to Post-Quantum Cryptography (PQC) for Software as a Service (SaaS) providers.
-We will address the following questions
+We will address the following questions:
 - What is Post-Quantum Cryptography?
 - Why should we care about Post-Quantum Cryptography?
 - What does academic and industry literature say about Post-Quantum Cryptography?
@@ -14,7 +14,7 @@ We will address the following questions
 
 ### A recap of classical cryptography
 
-Before we get into PQC, it's good to iterate the concepts of classical cryptography.
+Before we get into PQC, it's good to reiterate the concepts of classical cryptography.
 
 [Cryptography](https://en.wikipedia.org/wiki/Cryptography), or cryptology, is the practice and study of techniques for secure communication in the presence of adversarial behavior.
 
@@ -27,12 +27,12 @@ RSA is based on the difficulty of factoring semiprimes `N = p * q` with `p` and 
 
 A standard symmetric cryptographic algorithm is the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), a symmetric block cipher that encrypts and decrypts data in blocks of 128 bits using keys of 128, 192, or 256 bits.
 
-A different type of cryptography is [lattice-based cryptography](https://en.wikipedia.org/wiki/Lattice-based_cryptography), which is a form of cryptography that involve lattices, which are integer linear combinations of a basis of a vector space.
-This type of cryptography is used in the creation of the first 3 post-quantum cryptographic standards (more on this later), and has a lot of interesting properties. One of these properties is it's security relying on worst-case hardness of certain lattice problems. Another is the ability to use lattice-based cryptography within homomorphic encryption schemes, which allows computations to be performed on ciphertext data without needing to decrypt it first.
+A different type of cryptography is [lattice-based cryptography](https://en.wikipedia.org/wiki/Lattice-based_cryptography), which is a form of cryptography that involves lattices, which are integer linear combinations of a basis of a vector space.
+This type of cryptography is used in the creation of the first 3 post-quantum cryptographic standards (more on this later), and has a lot of interesting properties. One of these properties is its security relying on worst-case hardness of certain lattice problems. Another is the ability to use lattice-based cryptography within homomorphic encryption schemes, which allows computations to be performed on ciphertext data without needing to decrypt it first.
 
 ### What is Quantum Computing?
 
-I am not a physicist, so I'll rely on other sources to explain what quantum computing is.
+We'll rely on other sources to explain what quantum computing is.
 
 [Quantum computing](https://en.wikipedia.org/wiki/Quantum_computing) is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation.
 The basic unit of information in quantum computing, the qubit (quantum bit), serves a similar function as the bit in ordinary or "classical" computing. Unlike a classical bit, which can be in one of two states (a binary), a qubit can exist in a linear combination of states known as a quantum superposition.
@@ -52,27 +52,27 @@ We provide multiple reasons why SaaS providers should care about PQC.
 The primary reason is that PQC risks are not a risk of the future, they are a risk of **today**.
 Attackers can perform [Harvest Now, Decrypt Later (HNDL)](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) attacks, where they can capture encrypted data today and store it until a quantum computer is available to decrypt it. If the data in question is sensitive and has a long shelf life, it is important to consider the potential risks of quantum computing and PQC.
 
-A second reason why PQC is important is that improved cryptanalysis are being published continuously (more on this later), meaning cryptographic algorithms deemed safe today may not be in the future.
+A second reason why PQC is important is that improved cryptanalysis is being published continuously (more on this later), meaning cryptographic algorithms deemed safe today may not be in the future.
 This applies both to classical and post-quantum cryptography, but the latter is still in its infancy, so it is important to keep an eye on the latest developments in the field.
 Ensuring the cryptographic algorithms and their associated keys are quantum-safe could require a full-on migration.
 
 Lastly, compliance and regulatory requirements may leave us with little choice but to adopt PQC.
 In [executive order 14412](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/), the White House has mandated that all high impact systems use PQC for key establishment by December 31, 2030.
-In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would stop certifying security products that lack quantum-resistant encryption, a move that will force government bodies and critical operators to shift away from older systems (see references at the end).
+In similar fashion, France's cybersecurity agency ANSSI announced it would stop certifying security products that lack quantum-resistant encryption, a move that will force government bodies and critical operators to shift away from older systems (see references at the end).
 
 ## What does academic and industry literature say about Post-Quantum Cryptography?
 
 ### Industry leaders and standards
 
-Without providing an in-depth literature review, we will just point out that Google and Cloudflare are two major players in that have already starting engaging with PQC.
+Without providing an in-depth literature review, we will just point out that Google and Cloudflare are two major players that have already started engaging with PQC.
 
 Google’s [white paper](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/) published recently on March 31, 2026, shows massive improvements in quantum cryptanalysis, with 20x reduction in the number of physical qubits required to solve ECDLP-256 (i.e. 256-bit elliptic curve discrete logarithm problem).
 
-Cloudflare has excellent technical documentation for industry professionals on PQC, and are running active experiments like one on [the latest post-quantum signature standardization candidates](https://blog.cloudflare.com/another-look-at-pq-signatures/).
+Cloudflare has excellent technical documentation for industry professionals on PQC, and is running active experiments like one on [the latest post-quantum signature standardization candidates](https://blog.cloudflare.com/another-look-at-pq-signatures/).
 Additionally, they have been a frontrunner on adopting these new standards, reporting about 50% of their TLS traffic is now using post-quantum cryptography.
-This is done through enabling `X25519MLKEM768` over TLS 1.3 `AES-128-GCM` for their edge gateways, the details of which i'll explain later in this post.
+This is done through enabling `X25519MLKEM768` over TLS 1.3 for their edge gateways, the details of which we'll explain later in this post.
 
-One of the takeaways from Cloudflare post-quantum standardization support is that the availability of these encryption algorithms is <u>already here</u>.
+One of the takeaways from Cloudflare post-quantum standardization support is that the availability of these encryption algorithms is **already here**.
 In August 13, 2024, NIST [announced](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards) the first 3 post-quantum cryptography standards, which are:
 - FIPS 203, intended as the primary standard for general encryption. Among its advantages are comparatively small encryption keys that two parties can exchange easily, as well as its speed of operation. The standard is based on the CRYSTALS-Kyber algorithm, which has been renamed ML-KEM, short for Module-Lattice-Based Key-Encapsulation Mechanism.
 - FIPS 204, intended as the primary standard for protecting digital signatures. The standard uses the CRYSTALS-Dilithium algorithm, which has been renamed ML-DSA, short for Module-Lattice-Based Digital Signature Algorithm.
@@ -89,7 +89,7 @@ This cryptanalysis improvement can be overcome by doubling the key size, which i
 
 In fact, Cloudflare researchers reported that even though doubling the symmetric key size will mitigate the theoretical risk completely, there are no [practical benefits](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography) to doing so. They argue that asymmetric cryptographic algorithms are the ones that are most at risk from quantum computing, and that doubling the key size of symmetric algorithms is not the most productive use of resources.
 
-We therefore present the following result: **Symmetric encryption algorithms are not affected by quantum computing**.
+We therefore present the following result: **Symmetric encryption algorithms are not heavily affected by quantum computing and are not a migration priority**.
 
 ### How is Asymmetric-key cryptography affected by Post-Quantum Cryptography?
 
@@ -119,27 +119,7 @@ Certificate chain
 ---
 Server certificate
 -----BEGIN CERTIFICATE-----
-MIID0TCCA3igAwIBAgIQW7DwqoTI/s4OctgFunpdKzAKBggqhkjOPQQDAjA7MQsw
-CQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMQwwCgYD
-VQQDEwNXRTEwHhcNMjYwNzA4MjE0NzM5WhcNMjYxMDA2MjI0NzI3WjAZMRcwFQYD
-VQQDEw5jbG91ZGZsYXJlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABNDs
-LiTwXD8kBejjJ84lHC2pA/dk9KmXCEvGw3h8Q+7k8VsHg+RTC59ZKvGB64Sxa/VY
-QKmErVJnaVKGW/ZmtpyjggJ+MIICejAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAww
-CgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUacXlKENrJNyJKrq/
-tuW/cwIbht8wHwYDVR0jBBgwFoAUkHeSNWfE/6jMqeZ72YB5e8yT+TgwNQYIKwYB
-BQUHAQEEKTAnMCUGCCsGAQUFBzAChhlodHRwOi8vaS5wa2kuZ29vZy93ZTEuY3J0
-MHcGA1UdEQRwMG6CDmNsb3VkZmxhcmUuY29tghFucy5jbG91ZGZsYXJlLmNvbYIT
-Ki5ucy5jbG91ZGZsYXJlLmNvbYIaKi5zZWNvbmRhcnkuY2xvdWRmbGFyZS5jb22C
-GHNlY29uZGFyeS5jbG91ZGZsYXJlLmNvbTATBgNVHSAEDDAKMAgGBmeBDAECATA2
-BgNVHR8ELzAtMCugKaAnhiVodHRwOi8vYy5wa2kuZ29vZy93ZTEvZ3hJQnY2QjJo
-WXcuY3JsMIIBBgYKKwYBBAHWeQIEAgSB9wSB9ADyAHcA2AlVO5RPev/IFhlvlE+F
-q7D4/F6HVSYPFdEucrtFSxQAAAGfQ+pcGAAABAMASDBGAiEAmWXvLSMhlxmi1S+K
-4kRMCdLEX+wGBAbdVV32dnt5a6sCIQD6pKaA18jr06ffv31tpjCDisobc6KEE61J
-wvVxvqwLegB3AJROQ4f67MHvgfMZJCaoGGUBx9NfOAIBP3JnfVU3LhnYAAABn0Pq
-W+oAAAQDAEgwRgIhALnZFhafFrXB4xJaLIy3mygxmpU7RRsZ6OFFtczrFM75AiEA
-+8DfUCZ9uOzHPcJ/wEeuBbTnezletxwXYeeR1puJ1PowCgYIKoZIzj0EAwIDRwAw
-RAIgemJR8aLVJo+E0p0FEfr5tr1cqlieMgJz99Z4kQ2qV/0CIDkILcHmaYKjAb/E
-1SRXgGzSIHgL8yrIPq70NQh9H4iP
+<snippet>
 -----END CERTIFICATE-----
 subject=CN=cloudflare.com
 issuer=C=US, O=Google Trust Services, CN=WE1
@@ -164,8 +144,8 @@ Verify return code: 0 (ok)
 ---
 ```
 
-As mentioned earlier, and as we can see from the `openssl` output, Cloudflare uses `X25519MLKEM768` over TLS 1.3 `AES-128-GCM`.
-The `AES-128-GCM` is nothing new, but the `X25519MLKEM768` is a post-quantum key exchange algorithm that is based on the ML-KEM standard.
+As mentioned earlier, and as we can see from the `openssl` output, Cloudflare uses `X25519MLKEM768` over TLS 1.3.
+The `AES-256-GCM` is nothing new, but the `X25519MLKEM768` is a post-quantum key exchange algorithm that is based on the ML-KEM standard.
 
 In fact, this last algorithm is known as a hybrid key exchange.
 In simple terms, hybrid key exchange involves using two different key agreement algorithms simultaneously to establish a secure connection: one tried-and-true classical algorithm (like the ECDH [X25519](https://en.wikipedia.org/wiki/Curve25519) elliptic curve algorithm many browsers use today) and one new PQC algorithm.
@@ -184,22 +164,22 @@ A typical Web PKI handshake today carries five signatures and two public keys.
 Replacing those with ML-DSA equivalents would push a single TLS handshake well past 10 kilobytes.
 Cloudflare’s research has shown that, at that scale, a meaningful share of TLS connections fail on real-world networks, and the rest get slower.
 
-What Let's Encrypt will do, is that they will move to a new design known as ["Merkle Tree Certificates" (MTCS)](https://blog.cloudflare.com/bootstrap-mtc/).
+What Let's Encrypt will do, is that they will move to a new design known as ["Merkle Tree Certificates" (MTCs)](https://blog.cloudflare.com/bootstrap-mtc/).
 Instead of issuing certificates one at a time and signing each one individually, an MTC certificate authority issues certificates in batches, with a single signature covering the entire batch. Browsers stay up to date on those batch signatures (called “landmarks”) separately from the TLS handshake.
 In the common case, the entire authentication path in an MTC handshake is one signature, one public key, and one inclusion proof. That’s smaller than today’s Web PKI handshake, even though MTCs use post-quantum algorithms. The other case is the “standalone” form. It uses slightly larger handshakes as a fallback when a client’s landmark is out of date.
 
 To conclude: this is a massive design change in the way certificates are issued and verified, and it is a necessary change to accommodate the larger sizes of post-quantum signatures.
 Let's Encrypt is targeting late 2026 for a staging environment that issues MTCs, and 2027 for a production-ready environment.
 
-Interestingly enough, other certificate authorities like ssl(.)com have much no such commitments as of time of writing.
+Interestingly enough, other certificate authorities like ssl(.)com have made no such commitments as of time of writing.
 
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
 
-We can share the following conclusions for SaaS providers
-- Symmetric encryption algorithms are not affected by quantum computing, so we can continue using them as before.
+We can share the following conclusions for SaaS providers:
+- Symmetric encryption algorithms are not heavily affected by quantum computing, so we can continue using them as before.
 - Asymmetric encryption algorithms are highly affected by quantum computing, so we will need to migrate to post-quantum safe alternatives for key exchanges and digital signatures.
-- For cloud based SaaS providers, the cloud service provider used to host the SaaS product will be the biggest dependency for PQC adoption, as they will be the ones to provide the post-quantum safe alternatives for key exchanges and digital signatures. The main cloud providers (Azure, AWS, Google) already committed to timelines for post-quantum safety, with Microsoft [committing](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/) to transition products and services to PQC by 2029.
-- Microsoft provides a customer strategy for cryptographic posture management in [this blog](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/). They introduce the concept of a "cryptographic inventory", which is a living catalog of all the cryptographic assets and mechanisms in use across your organization. This includes certificates and keys, protocols and cipher suites, cryptographic libraries and more. SaaS providers should start initial inventorization to get insights into their cryptographic inventory. This allows service providers to identify critical gaps such as ssl(.)com service provider not having committed to a PQC timeline. 
+- For cloud-based SaaS providers, the cloud service provider used to host the SaaS product will be the biggest dependency for PQC adoption, as they will be the ones to provide the post-quantum safe alternatives for key exchanges and digital signatures. The main cloud providers (Azure, AWS, Google) have already committed to timelines for post-quantum safety, with Microsoft [committing](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/) to transition products and services to PQC by 2029.
+- Microsoft provides a customer strategy for cryptographic posture management in [this blog](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/). They introduce the concept of a "cryptographic inventory", which is a living catalog of all the cryptographic assets and mechanisms in use across your organization. This includes certificates and keys, protocols and cipher suites, cryptographic libraries and more. SaaS providers should start an initial inventory to get insights into critical gaps. Certificate authorities like ssl(.)com not having committed to a PQC timeline would be an example of such a gap.
 
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
 
