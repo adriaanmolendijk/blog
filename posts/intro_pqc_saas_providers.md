@@ -6,7 +6,7 @@ This post is an introduction to Post-Quantum Cryptography (PQC) for Software as 
 We will address the following questions
 - What is Post-Quantum Cryptography?
 - Why should we care about Post-Quantum Cryptography?
-- What does academic and industry say about Post-Quantum Cryptography?
+- What does academic and industry literature say about Post-Quantum Cryptography?
 - How are we SaaS providers affected by Post-Quantum Cryptography?
 - What's next for Post-Quantum Cryptography in the SaaS industry?
 
@@ -60,7 +60,7 @@ Lastly, compliance and regulatory requirements may leave us with little choice b
 In [executive order 14412](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/), the White House has mandated that all high impact systems use PQC for key establishment by December 31, 2030.
 In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would stop certifying security products that lack quantum-resistant encryption, a move that will force government bodies and critical operators to shift away from older systems (see references at the end).
 
-## What does academic and industry say about Post-Quantum Cryptography?
+## What does academic and industry literature say about Post-Quantum Cryptography?
 
 ### Industry leaders and standards
 
