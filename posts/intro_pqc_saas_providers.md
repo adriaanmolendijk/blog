@@ -60,6 +60,35 @@ In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would
 
 ## What does the academic and industry say about Post-Quantum Cryptography?
 
+Without providing an in-depth literature review, we will just point out that Google and Cloudflare are two major players in that have already starting engaging with PQC.
+
+Google’s [white paper](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/) published recently on March 31, 2026, shows massive improvements in quantum cryptanalysis, with 20x reduction in the number of physical qubits required to solve ECDLP-256 (i.e. 256-bit elliptic curve discrete logarithm problem).
+
+Cloudflare has excellent technical documentation for industry professionals on PQC, and are running active experiments like one on [the latest post-quantum signature standardization candidates](https://blog.cloudflare.com/another-look-at-pq-signatures/).
+Additionally, they have been a frontrunner on adopting these new standards, reporting about 50% of their TLS traffic is now using post-quantum cryptography.
+This is done through enabling `X25519MLKEM768` over TLS 1.3 `AES-128-GCM` for their edge gateways, the details of which i'll explain later in this post.
+
+One of the takeaways from Cloudflare post-quantum standardization support is that the availability of these encryption algorithms is <u>already here</u>.
+In August 13, 2024, NIST [announced](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards) the first 3 post-quantum cryptography standards, which are:
+- FIPS 203, intended as the primary standard for general encryption. Among its advantages are comparatively small encryption keys that two parties can exchange easily, as well as its speed of operation. The standard is based on the CRYSTALS-Kyber algorithm, which has been renamed ML-KEM, short for Module-Lattice-Based Key-Encapsulation Mechanism.
+- FIPS 204, intended as the primary standard for protecting digital signatures. The standard uses the CRYSTALS-Dilithium algorithm, which has been renamed ML-DSA, short for Module-Lattice-Based Digital Signature Algorithm.
+- FIPS 205, also designed for digital signatures. The standard employs the Sphincs+ algorithm, which has been renamed SLH-DSA, short for Stateless Hash-Based Digital Signature Algorithm. The standard is based on a different math approach than ML-DSA, and it is intended as a backup method in case ML-DSA proves vulnerable.
+
+As you saw above, ML-KEM is already used in TLS 1.3 key exchanges for Cloudflare edge gateways, and other software is catching up also, like go 1.27, which has added [support](https://go.dev/doc/go1.27#crypto_mldsa) for ML-KEM and ML-DSA in its standard library.
+
+### How is Symmetric-key cryptography affected by Post-Quantum Cryptography?
+
+As mentioned earlier, Grover's algorithm can be used to perform unstructured search in `O(√N)` evaluations of the function, where `N` is the size of the function's domain.
+Now for breaking a symmetric-key cryptography algorithm, the function's domain is the key space, which is `2^k` for a `k`-bit key.
+Running the algorithm gives us a time complexity of `O(√(2^k)) = O(2^(k/2))`, which is a quadratic speedup over classical brute-force attacks.
+This cryptanalysis improvement can be overcome by doubling the key size, which is a simple and effective mitigation strategy.
+
+In fact, Cloudflare researchers reported that even though doubling the symmetric key size will mitigate the theoretical risk completely, there are no [practical benefits](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography) to doing so. They argue that asymmetric cryptographic algorithms are the ones that are most at risk from quantum computing, and that doubling the key size of symmetric algorithms is not the most productive use of resources.
+
+We therefore present the following result: <u>Symmetric encryption algorithms are not affected by quantum computing</u>.
+
+### How is Asymmetric-key cryptography affected by Post-Quantum Cryptography?
+
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
 
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
@@ -81,3 +110,8 @@ In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would
 13. [https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later)
 14. [https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/)
 15. [https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/](https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/)
+16. [https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/)
+17. [https://blog.cloudflare.com/another-look-at-pq-signatures/](https://blog.cloudflare.com/another-look-at-pq-signatures/)
+18. [https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
+19. [https://go.dev/doc/go1.27#crypto_mldsa](https://go.dev/doc/go1.27#crypto_mldsa)
+20. [https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography)
