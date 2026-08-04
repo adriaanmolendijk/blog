@@ -62,6 +62,8 @@ In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would
 
 ## What does the academic and industry say about Post-Quantum Cryptography?
 
+### Industry leaders and standards
+
 Without providing an in-depth literature review, we will just point out that Google and Cloudflare are two major players in that have already starting engaging with PQC.
 
 Google’s [white paper](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/) published recently on March 31, 2026, shows massive improvements in quantum cryptanalysis, with 20x reduction in the number of physical qubits required to solve ECDLP-256 (i.e. 256-bit elliptic curve discrete logarithm problem).
@@ -91,6 +93,87 @@ We therefore present the following result: **Symmetric encryption algorithms are
 
 ### How is Asymmetric-key cryptography affected by Post-Quantum Cryptography?
 
+Unlike symmetric encryption algorithms, asymmetric encryption algorithms are highly affected by quantum computing, as we saw with Shor's algorithm.
+Shor's algorithm will break RSA and ECC. This means that wherever these encryption algorithms are used, whether it is in key exchanges or digital signatures, they will need to be migrated to post-quantum safe alternatives.
+As highlighted earlier, NIST provides such alternatives in the form of ML-KEM, ML-DSA, and SLH-DSA.
+
+We demo a quantum-safe key exchange for [https://cloudflare.com](https://cloudflare.com) from the terminal.
+
+```shell
+➜  ~ openssl s_client -connect cloudflare.com:443 -servername cloudflare.com -tls1_3 </dev/null 2>/dev/null
+CONNECTED(00000005)
+---
+Certificate chain
+ 0 s:CN=cloudflare.com
+   i:C=US, O=Google Trust Services, CN=WE1
+   a:PKEY: EC, (prime256v1); sigalg: ecdsa-with-SHA256
+   v:NotBefore: Jul  8 21:47:39 2026 GMT; NotAfter: Oct  6 22:47:27 2026 GMT
+ 1 s:C=US, O=Google Trust Services, CN=WE1
+   i:C=US, O=Google Trust Services LLC, CN=GTS Root R4
+   a:PKEY: EC, (prime256v1); sigalg: ecdsa-with-SHA384
+   v:NotBefore: Dec 13 09:00:00 2023 GMT; NotAfter: Feb 20 14:00:00 2029 GMT
+ 2 s:C=US, O=Google Trust Services LLC, CN=GTS Root R4
+   i:C=BE, O=GlobalSign nv-sa, OU=Root CA, CN=GlobalSign Root CA
+   a:PKEY: EC, (secp384r1); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Nov 15 03:43:21 2023 GMT; NotAfter: Jan 28 00:00:42 2028 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIID0TCCA3igAwIBAgIQW7DwqoTI/s4OctgFunpdKzAKBggqhkjOPQQDAjA7MQsw
+CQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMQwwCgYD
+VQQDEwNXRTEwHhcNMjYwNzA4MjE0NzM5WhcNMjYxMDA2MjI0NzI3WjAZMRcwFQYD
+VQQDEw5jbG91ZGZsYXJlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABNDs
+LiTwXD8kBejjJ84lHC2pA/dk9KmXCEvGw3h8Q+7k8VsHg+RTC59ZKvGB64Sxa/VY
+QKmErVJnaVKGW/ZmtpyjggJ+MIICejAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAww
+CgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUacXlKENrJNyJKrq/
+tuW/cwIbht8wHwYDVR0jBBgwFoAUkHeSNWfE/6jMqeZ72YB5e8yT+TgwNQYIKwYB
+BQUHAQEEKTAnMCUGCCsGAQUFBzAChhlodHRwOi8vaS5wa2kuZ29vZy93ZTEuY3J0
+MHcGA1UdEQRwMG6CDmNsb3VkZmxhcmUuY29tghFucy5jbG91ZGZsYXJlLmNvbYIT
+Ki5ucy5jbG91ZGZsYXJlLmNvbYIaKi5zZWNvbmRhcnkuY2xvdWRmbGFyZS5jb22C
+GHNlY29uZGFyeS5jbG91ZGZsYXJlLmNvbTATBgNVHSAEDDAKMAgGBmeBDAECATA2
+BgNVHR8ELzAtMCugKaAnhiVodHRwOi8vYy5wa2kuZ29vZy93ZTEvZ3hJQnY2QjJo
+WXcuY3JsMIIBBgYKKwYBBAHWeQIEAgSB9wSB9ADyAHcA2AlVO5RPev/IFhlvlE+F
+q7D4/F6HVSYPFdEucrtFSxQAAAGfQ+pcGAAABAMASDBGAiEAmWXvLSMhlxmi1S+K
+4kRMCdLEX+wGBAbdVV32dnt5a6sCIQD6pKaA18jr06ffv31tpjCDisobc6KEE61J
+wvVxvqwLegB3AJROQ4f67MHvgfMZJCaoGGUBx9NfOAIBP3JnfVU3LhnYAAABn0Pq
+W+oAAAQDAEgwRgIhALnZFhafFrXB4xJaLIy3mygxmpU7RRsZ6OFFtczrFM75AiEA
++8DfUCZ9uOzHPcJ/wEeuBbTnezletxwXYeeR1puJ1PowCgYIKoZIzj0EAwIDRwAw
+RAIgemJR8aLVJo+E0p0FEfr5tr1cqlieMgJz99Z4kQ2qV/0CIDkILcHmaYKjAb/E
+1SRXgGzSIHgL8yrIPq70NQh9H4iP
+-----END CERTIFICATE-----
+subject=CN=cloudflare.com
+issuer=C=US, O=Google Trust Services, CN=WE1
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: ecdsa_secp256r1_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 3956 bytes and written 1552 bytes
+Verification: OK
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 256 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+```
+
+As mentioned earlier, and as we can see from the `openssl` output, Cloudflare uses `X25519MLKEM768` over TLS 1.3 `AES-128-GCM`.
+The `AES-128-GCM` is nothing new, but the `X25519MLKEM768` is a post-quantum key exchange algorithm that is based on the ML-KEM standard.
+
+In fact, this last algorithm is known as a hybrid key exchange.
+In simple terms, hybrid key exchange involves using two different key agreement algorithms simultaneously to establish a secure connection: one tried-and-true classical algorithm (like the ECDH [X25519](https://en.wikipedia.org/wiki/Curve25519) elliptic curve algorithm many browsers use today) and one new PQC algorithm.
+
+As explained very well in this [article](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276), the beauty of this hybrid approach is its resilience.
+The resulting connection remains secure as long as at least one of the component algorithms remains unbroken. If an unforeseen flaw is found in the new PQC algorithm, the classical algorithm still provides robust protection. Conversely, when quantum computers eventually break the classical algorithm, the PQC component will ensure your data remains secure. This "belt and suspenders" method allows for the early adoption of quantum-resistant security while retaining the proven guarantees of classical cryptography.
+
+
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
 
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
@@ -117,3 +200,6 @@ We therefore present the following result: **Symmetric encryption algorithms are
 18. [https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
 19. [https://go.dev/doc/go1.27#crypto_mldsa](https://go.dev/doc/go1.27#crypto_mldsa)
 20. [https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography)
+21. [https://en.wikipedia.org/wiki/Curve25519](https://en.wikipedia.org/wiki/Curve25519)
+22. [https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276)
+23. 
