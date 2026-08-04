@@ -1,3 +1,3 @@
 # Blog
 
-Personal blog.
+Taking some notes on cybersecurity and theology.
