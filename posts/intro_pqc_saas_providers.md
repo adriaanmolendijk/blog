@@ -189,6 +189,8 @@ For us security professionals and service providers it is incumbent to keep an e
 
 There are many changes ahead making it hard to predict what, say, the next 5-10 years will look like. But we can point to clear standards set by NIST: ML-DSA and ML-KEM are the post-quantum safe alternatives for digital signatures and key exchanges, respectively.
 
+Testing $O(n)$.
+
 ## References
 
 1. [https://en.wikipedia.org/wiki/Cryptography](https://en.wikipedia.org/wiki/Cryptography)
