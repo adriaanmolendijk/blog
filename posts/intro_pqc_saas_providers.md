@@ -47,7 +47,7 @@ Now, wrapping up. [Post-quantum cryptography (PQC)](https://en.wikipedia.org/wik
 
 We provide multiple reasons why SaaS providers should care about PQC.
 
-The primary reason is that PQC risks are not a risk of the future, they are a risk of <u>today</u>.
+The primary reason is that PQC risks are not a risk of the future, they are a risk of **today**.
 Attackers can perform [Harvest Now, Decrypt Later (HNDL)](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) attacks, where they can capture encrypted data today and store it until a quantum computer is available to decrypt it. If the data in question is sensitive and has a long shelf life, it is important to consider the potential risks of quantum computing and PQC.
 
 A second reason why PQC is important is that improved cryptanalysis are being published continuously (more on this later), meaning cryptographic algorithms deemed safe today may not be in the future.
@@ -85,7 +85,7 @@ This cryptanalysis improvement can be overcome by doubling the key size, which i
 
 In fact, Cloudflare researchers reported that even though doubling the symmetric key size will mitigate the theoretical risk completely, there are no [practical benefits](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography) to doing so. They argue that asymmetric cryptographic algorithms are the ones that are most at risk from quantum computing, and that doubling the key size of symmetric algorithms is not the most productive use of resources.
 
-We therefore present the following result: <u>Symmetric encryption algorithms are not affected by quantum computing</u>.
+We therefore present the following result: **Symmetric encryption algorithms are not affected by quantum computing**.
 
 ### How is Asymmetric-key cryptography affected by Post-Quantum Cryptography?
 
