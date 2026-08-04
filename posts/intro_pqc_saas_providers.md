@@ -45,6 +45,19 @@ Now, wrapping up. [Post-quantum cryptography (PQC)](https://en.wikipedia.org/wik
 
 ## Why should we care about Post-Quantum Cryptography?
 
+We provide multiple reasons why SaaS providers should care about PQC.
+
+The primary reason is that PQC risks are not a risk of the future, they are a risk of <u>today</u>.
+Attackers can perform [Harvest Now, Decrypt Later (HNDL)](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) attacks, where they can capture encrypted data today and store it until a quantum computer is available to decrypt it. If the data in question is sensitive and has a long shelf life, it is important to consider the potential risks of quantum computing and PQC.
+
+A second reason why PQC is important is that improved cryptanalysis are being published continuously (more on this later), meaning cryptographic algorithms deemed safe today may not be in the future.
+This applies both to classical and post-quantum cryptography, but the latter is still in its infancy, so it is important to keep an eye on the latest developments in the field.
+Ensuring the cryptographic algorithms and their associated keys are quantum-safe could require a full-on migration.
+
+Lastly, compliance and regulatory requirements may leave us with little choice but to adopt PQC.
+In [executive order 14412](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/), the White House has mandated that all high impact systems use PQC for key establishment by December 31, 2030.
+In similar fashion, France's cybersecurity agency ANSSI said on Tuesday it would stop certifying security products that lack quantum-resistant encryption, a move that will force government bodies and critical operators to shift away from older systems (see references at the end).
+
 ## What does the academic and industry say about Post-Quantum Cryptography?
 
 ## How are we SaaS providers affected by Post-Quantum Cryptography?
@@ -65,3 +78,6 @@ Now, wrapping up. [Post-quantum cryptography (PQC)](https://en.wikipedia.org/wik
 - [https://en.wikipedia.org/wiki/Shor%27s_algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm)
 - [https://en.wikipedia.org/wiki/Grover%27s_algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm)
 - [https://en.wikipedia.org/wiki/Post-quantum_cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography)
+- [https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later)
+- [https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/)
+- [https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/](https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/)
