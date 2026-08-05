@@ -1,6 +1,6 @@
 # An Introduction to Post-Quantum Cryptography for SaaS Providers
 
-> **Last updated:** August 5, 2026
+> **Last updated:** August 4, 2026
 
 This post is an introduction to Post-Quantum Cryptography (PQC) for Software as a Service (SaaS) providers.
 We will address the following questions:
@@ -28,7 +28,7 @@ RSA is based on the difficulty of factoring semiprimes `N = p * q` with `p` and 
 A standard symmetric cryptographic algorithm is the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), a symmetric block cipher that encrypts and decrypts data in blocks of 128 bits using keys of 128, 192, or 256 bits.
 
 A different type of cryptography is [lattice-based cryptography](https://en.wikipedia.org/wiki/Lattice-based_cryptography), which is a form of cryptography that involves lattices, which are integer linear combinations of a basis of a vector space.
-This type of cryptography is used in the creation of the first 3 post-quantum cryptographic standards (more on this later), and has a lot of interesting properties. One of these properties is its security relying on worst-case hardness of certain lattice problems. Another is the ability to use lattice-based cryptography within homomorphic encryption schemes, which allows computations to be performed on ciphertext data without needing to decrypt it first.
+This type of cryptography is used in the creation of the first 3 post-quantum cryptographic standards (more on this later), and has a lot of interesting properties. One of these properties is its security relying on worst-case hardness of certain lattice problems. Another is the ability to use lattice-based cryptography within homomorphic encryption schemes, which allows computations to be performed on cipher text without needing to decrypt it first.
 
 ### What is Quantum Computing?
 
