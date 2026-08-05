@@ -54,7 +54,7 @@ Attackers can perform [Harvest Now, Decrypt Later (HNDL)](https://en.wikipedia.o
 
 A second reason why PQC is important is that improved cryptanalysis is being published continuously (more on this later), meaning cryptographic algorithms deemed safe today may not be in the future.
 This applies both to classical and post-quantum cryptography, but the latter is still in its infancy, so it is important to keep an eye on the latest developments in the field.
-Ensuring the cryptographic algorithms and their associated keys are quantum-safe could require a full-on migration.
+Ensuring the cryptographic algorithms and their associated keys are quantum-safe could require a full-on migration of these components, so we'll have to plan for this migration in advance.
 
 Lastly, compliance and regulatory requirements may leave us with little choice but to adopt PQC.
 In [executive order 14412](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/), the White House has mandated that all high impact systems use PQC for key establishment by December 31, 2030.
@@ -145,26 +145,28 @@ Verify return code: 0 (ok)
 ```
 
 As mentioned earlier, and as we can see from the `openssl` output, Cloudflare uses `X25519MLKEM768` over TLS 1.3.
-The `AES-256-GCM` is nothing new, but the `X25519MLKEM768` is a post-quantum key exchange algorithm that is based on the ML-KEM standard.
+The `AES-256-GCM` is the familiar bulk encryption cipher, and the `X25519MLKEM768` is a post-quantum key exchange algorithm that is based on the ML-KEM standard.
 
-In fact, this last algorithm is known as a hybrid key exchange.
-In simple terms, hybrid key exchange involves using two different key agreement algorithms simultaneously to establish a secure connection: one tried-and-true classical algorithm (like the ECDH [X25519](https://en.wikipedia.org/wiki/Curve25519) elliptic curve algorithm many browsers use today) and one new PQC algorithm.
+In fact, this last algorithm is what is known as a hybrid key exchange.
+In simple terms, such exchange involves using two different key agreement algorithms simultaneously to establish a secure connection: one tried-and-true classical algorithm (in this example ECDH [X25519](https://en.wikipedia.org/wiki/Curve25519)) and the new PQC algorithm.
 
 As explained very well in this [article](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276), the beauty of this hybrid approach is its resilience.
-The resulting connection remains secure as long as at least one of the component algorithms remains unbroken. If an unforeseen flaw is found in the new PQC algorithm, the classical algorithm still provides robust protection. Conversely, when quantum computers eventually break the classical algorithm, the PQC component will ensure your data remains secure. This "belt and suspenders" method allows for the early adoption of quantum-resistant security while retaining the proven guarantees of classical cryptography.
+The resulting connection remains secure as long as at least one of the component algorithms remains unbroken. If an unforeseen flaw is found in ML-KEM, the classical algorithm X25519 still provides robust protection. Conversely, when quantum computers eventually break X22159, the PQC component will ensure your data remains secure. This method allows for the early adoption of quantum-resistant security while retaining the proven guarantees of classical cryptography.
 
 ### How is Web PKI affected by Post-Quantum Cryptography?
 
 In the previous subsections we discussed how PQC affects symmetric and asymmetric cryptography, but we didn't discuss how it affects the Web PKI (Public Key Infrastructure).
 
-This domain could arguably be the most affected by PQC, as web PKI is one of the trickiest places to deploy post-quantum signatures. The reason is size.
-As Let's Encrypt explains in their vision on post-quantum future in [this post](https://letsencrypt.org/2026/06/03/pq-certs), ML-DSA-44, one of the smaller NIST standardized post-quantum signature schemes, has a signature roughly 2,420 bytes long. The algorithms used in the Web PKI today are much smaller.
+This domain could arguably be the most affected by PQC, as web PKI is one of the trickiest places to deploy post-quantum signatures.
+The reason is handshake size.
+As Let's Encrypt explains in their vision on post-quantum future in [this post](https://letsencrypt.org/2026/06/03/pq-certs), ML-DSA-44, one of the smaller NIST standardized post-quantum signature schemes, has a signature roughly 2,420 bytes long.
+The algorithms used in the Web PKI today are much smaller.
 Public keys are bigger as well: 1,312 bytes for ML-DSA-44, 256 bytes for RSA-2048, and 64 bytes for ECDSA-P256.
 A typical Web PKI handshake today carries five signatures and two public keys.
 Replacing those with ML-DSA equivalents would push a single TLS handshake well past 10 kilobytes.
 Cloudflare’s research has shown that, at that scale, a meaningful share of TLS connections fail on real-world networks, and the rest get slower.
 
-What Let's Encrypt will do, is that they will move to a new design known as ["Merkle Tree Certificates" (MTCs)](https://blog.cloudflare.com/bootstrap-mtc/).
+Let's Encrypt will move to a new design known as ["Merkle Tree Certificates" (MTCs)](https://blog.cloudflare.com/bootstrap-mtc/).
 Instead of issuing certificates one at a time and signing each one individually, an MTC certificate authority issues certificates in batches, with a single signature covering the entire batch. Browsers stay up to date on those batch signatures (called “landmarks”) separately from the TLS handshake.
 In the common case, the entire authentication path in an MTC handshake is one signature, one public key, and one inclusion proof. That’s smaller than today’s Web PKI handshake, even though MTCs use post-quantum algorithms. The other case is the “standalone” form. It uses slightly larger handshakes as a fallback when a client’s landmark is out of date.
 
@@ -178,16 +180,16 @@ Interestingly enough, other certificate authorities like ssl(.)com have made no 
 We can share the following conclusions for SaaS providers:
 - Symmetric encryption algorithms are not heavily affected by quantum computing, so we can continue using them as before.
 - Asymmetric encryption algorithms are highly affected by quantum computing, so we will need to migrate to post-quantum safe alternatives for key exchanges and digital signatures.
-- For cloud-based SaaS providers, the cloud service provider used to host the SaaS product will be the biggest dependency for PQC adoption, as they will be the ones to provide the post-quantum safe alternatives for key exchanges and digital signatures. The main cloud providers (Azure, AWS, Google) have already committed to timelines for post-quantum safety, with Microsoft [committing](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/) to transition products and services to PQC by 2029.
+- For cloud-based SaaS providers, the cloud service provider used to host the SaaS product will be the biggest dependency for PQC adoption, as they will be the ones to provide the post-quantum safe alternatives for most key exchanges and digital signatures. The main cloud providers (Azure, AWS, Google) have already committed to timelines for post-quantum safety, with Microsoft [committing](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/) to transition products and services to PQC by 2029.
 - Microsoft provides a customer strategy for cryptographic posture management in [this blog](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/). They introduce the concept of a "cryptographic inventory", which is a living catalog of all the cryptographic assets and mechanisms in use across your organization. This includes certificates and keys, protocols and cipher suites, cryptographic libraries and more. SaaS providers should start an initial inventory to get insights into critical gaps. Certificate authorities like ssl(.)com not having committed to a PQC timeline would be an example of such a gap.
 
 ## What's next for Post-Quantum Cryptography in the SaaS industry?
 
-We're going to see continued rollout of `X25519MLKEM768` key exchange to edge services, first phased deployments of Merkle Tree Certificates, and continued adoption of post-quantum safe encryption algorithms by cloud providers and SaaS providers.
+We're going to see continued rollout of `X25519MLKEM768` key exchange to edge services, trial deployments of Merkle Tree Certificates, and continued adoption of post-quantum safe encryption algorithms by service providers.
 
 For us security professionals and service providers it is incumbent to keep an eye on the latest developments in the field, and to start planning for migration to post-quantum safe alternatives for the broken cryptographic algorithms.
 
-There are many changes ahead making it hard to predict what, say, the next 5-10 years will look like. But we can point to clear standards set by NIST: ML-DSA and ML-KEM are the post-quantum safe alternatives for digital signatures and key exchanges, respectively.
+There are many changes ahead making it hard to predict what the next, say, 5-10 years will look like. But we can point to clear standards set by NIST: ML-DSA and ML-KEM are the post-quantum safe alternatives for digital signatures and key exchanges, respectively.
 
 ## References
 
