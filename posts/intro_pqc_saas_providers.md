@@ -16,9 +16,9 @@ We will address the following questions:
 
 Before we get into PQC, it's good to reiterate the concepts of classical cryptography.
 
-[Cryptography](https://en.wikipedia.org/wiki/Cryptography), or cryptology, is the practice and study of techniques for secure communication in the presence of adversarial behavior.
+Cryptography, or cryptology, is the practice and study of techniques for secure communication in the presence of adversarial behavior.
 
-There are two main types of cryptography: [symmetric-key cryptography](https://en.wikipedia.org/wiki/Symmetric-key_algorithm) and [asymmetric-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), the latter also known as public key cryptography.
+There are two main types of cryptography: symmetric-key cryptography and asymmetric-key cryptography, the latter also known as public key cryptography.
 
 In symmetric-key cryptography, the same key is used for both encryption and decryption, while in public-key cryptography, a pair of keys is used: a public key / private key pair for encryption and decryption operations.
 
@@ -193,29 +193,26 @@ There are many changes ahead making it hard to predict what the next, say, 5-10 
 
 ## References
 
-1. [https://en.wikipedia.org/wiki/Cryptography](https://en.wikipedia.org/wiki/Cryptography)
-2. [https://en.wikipedia.org/wiki/Symmetric-key_algorithm](https://en.wikipedia.org/wiki/Symmetric-key_algorithm)
-3. [https://en.wikipedia.org/wiki/Public-key_cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography)
-4. [https://en.wikipedia.org/wiki/RSA_cryptosystem](https://en.wikipedia.org/wiki/RSA_cryptosystem)
-5. [https://en.wikipedia.org/wiki/Elliptic-curve_cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
-6. [https://en.wikipedia.org/wiki/Advanced_Encryption_Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-7. [https://en.wikipedia.org/wiki/Lattice-based_cryptography](https://en.wikipedia.org/wiki/Lattice-based_cryptography)
-8. [https://en.wikipedia.org/wiki/Quantum_computing](https://en.wikipedia.org/wiki/Quantum_computing)
-9. [https://en.wikipedia.org/wiki/Quantum_algorithm](https://en.wikipedia.org/wiki/Quantum_algorithm)
-10. [https://en.wikipedia.org/wiki/Shor%27s_algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm)
-11. [https://en.wikipedia.org/wiki/Grover%27s_algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm)
-12. [https://en.wikipedia.org/wiki/Post-quantum_cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography)
-13. [https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later)
-14. [https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/)
-15. [https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/](https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/)
-16. [https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/)
-17. [https://blog.cloudflare.com/another-look-at-pq-signatures/](https://blog.cloudflare.com/another-look-at-pq-signatures/)
-18. [https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
-19. [https://go.dev/doc/go1.27#crypto_mldsa](https://go.dev/doc/go1.27#crypto_mldsa)
-20. [https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography)
-21. [https://en.wikipedia.org/wiki/Curve25519](https://en.wikipedia.org/wiki/Curve25519)
-22. [https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276)
-23. [https://letsencrypt.org/2026/06/03/pq-certs](https://letsencrypt.org/2026/06/03/pq-certs)
-24. [https://blog.cloudflare.com/bootstrap-mtc/](https://blog.cloudflare.com/bootstrap-mtc/)
-25. [https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/)
-26. [https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/)
+1. [https://en.wikipedia.org/wiki/RSA_cryptosystem](https://en.wikipedia.org/wiki/RSA_cryptosystem)
+2. [https://en.wikipedia.org/wiki/Elliptic-curve_cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
+3. [https://en.wikipedia.org/wiki/Advanced_Encryption_Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+4. [https://en.wikipedia.org/wiki/Lattice-based_cryptography](https://en.wikipedia.org/wiki/Lattice-based_cryptography)
+5. [https://en.wikipedia.org/wiki/Quantum_computing](https://en.wikipedia.org/wiki/Quantum_computing)
+6. [https://en.wikipedia.org/wiki/Quantum_algorithm](https://en.wikipedia.org/wiki/Quantum_algorithm)
+7. [https://en.wikipedia.org/wiki/Shor%27s_algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm)
+8. [https://en.wikipedia.org/wiki/Grover%27s_algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm)
+9. [https://en.wikipedia.org/wiki/Post-quantum_cryptography](https://en.wikipedia.org/wiki/Post-quantum_cryptography)
+10. [https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later)
+11. [https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/](https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/)
+12. [https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/](https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/)
+13. [https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/)
+14. [https://blog.cloudflare.com/another-look-at-pq-signatures/](https://blog.cloudflare.com/another-look-at-pq-signatures/)
+15. [https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards)
+16. [https://go.dev/doc/go1.27#crypto_mldsa](https://go.dev/doc/go1.27#crypto_mldsa)
+17. [https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography)
+18. [https://en.wikipedia.org/wiki/Curve25519](https://en.wikipedia.org/wiki/Curve25519)
+19. [https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276](https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276)
+20. [https://letsencrypt.org/2026/06/03/pq-certs](https://letsencrypt.org/2026/06/03/pq-certs)
+21. [https://blog.cloudflare.com/bootstrap-mtc/](https://blog.cloudflare.com/bootstrap-mtc/)
+22. [https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/](https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/)
+23. [https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/](https://www.microsoft.com/en-us/security/blog/2026/04/16/building-your-cryptographic-inventory-a-customer-strategy-for-cryptographic-posture-management/)
