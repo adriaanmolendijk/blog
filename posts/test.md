@@ -2,4 +2,4 @@
 
 Testing some GitBooks settings.
 
-Trying math notation $e^{i \pi} + 1 = 0$.
+Trying math notation $$e^{i \pi} + 1 = 0$$.
