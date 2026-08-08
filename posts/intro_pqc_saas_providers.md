@@ -23,7 +23,7 @@ There are two main types of cryptography: symmetric-key cryptography and asymmet
 In symmetric-key cryptography, the same key is used for both encryption and decryption, while in public-key cryptography, a pair of keys is used: a public key / private key pair for encryption and decryption operations.
 
 Two standard asymmetric cryptographic algorithms are [Rivest–Shamir–Adleman (RSA)](https://en.wikipedia.org/wiki/RSA_cryptosystem) and [Elliptic Curve Cryptography (ECC)](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography).
-RSA is based on the difficulty of factoring semiprimes `N = p * q` with `p` and `q` large primes. ECC relies on the hardness of elliptic curve discrete logarithm problem, which is based on the ability to compute point multiplication on elliptic curves efficiently and the apparent inability to reverse this operation for properly chosen curves and key sizes.
+RSA is based on the difficulty of factoring semiprimes $$N = pq$$ with $$p$$ and $$q$$ large primes. ECC relies on the hardness of elliptic curve discrete logarithm problem, which is based on the ability to compute point multiplication on elliptic curves efficiently and the apparent inability to reverse this operation for properly chosen curves and key sizes.
 
 A standard symmetric cryptographic algorithm is the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), a symmetric block cipher that encrypts and decrypts data in blocks of 128 bits using keys of 128, 192, or 256 bits.
 
@@ -40,8 +40,8 @@ The basic unit of information in quantum computing, the qubit (quantum bit), ser
 [Quantum algorithms](https://en.wikipedia.org/wiki/Quantum_algorithm) are algorithms that run on a realistic model of quantum computation, the most widely used being the quantum circuit model in which a computation is a sequence of quantum gates, which are reversible transformations on a quantum mechanical analog of an n-bit register.
 
 There are two quantum algorithms that are highly relevant to cryptography: [Shor's algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm) and [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm).
-- Shor's algorithm is a quantum algorithm for finding the prime factors of an integer, running in polynomial time of `log(N)`, where `N` is the integer to be factored. This algorithm can be used to break RSA and ECC.
-- Grover's algorithm is a quantum algorithm for unstructured search that finds with high probability the unique input to a black box function that produces a particular output value, using just `O(√N)` evaluations of the function, where `N` is the size of the function's domain.
+- Shor's algorithm is a quantum algorithm for finding the prime factors of an integer, running in polynomial time of $$\log(N)$$, where $$N$$ is the integer to be factored. This algorithm can be used to break RSA and ECC.
+- Grover's algorithm is a quantum algorithm for unstructured search that finds with high probability the unique input to a black box function that produces a particular output value, using just $$O(\sqrt{N})$$ evaluations of the function, where $$N$$ is the size of the function's domain.
 
 Now, wrapping up. Post-quantum cryptography (PQC) is the development of cryptographic algorithms that are thought to be secure against a cryptanalytic attack by a quantum computer.
 
@@ -82,9 +82,9 @@ As you saw above, ML-KEM is already used in TLS 1.3 key exchanges for Cloudflare
 
 ### How is Symmetric-key cryptography affected by Post-Quantum Cryptography?
 
-As mentioned earlier, Grover's algorithm can be used to perform unstructured search in `O(√N)` evaluations of the function, where `N` is the size of the function's domain.
-Now for breaking a symmetric-key cryptography algorithm, the function's domain is the key space, which is `2^k` for a `k`-bit key.
-Running the algorithm gives us a time complexity of `O(√(2^k)) = O(2^(k/2))`, which is a quadratic speedup over classical brute-force attacks.
+As mentioned earlier, Grover's algorithm can be used to perform unstructured search in $$O(\sqrt{N})$$ evaluations of the function, where $$N$$ is the size of the function's domain.
+Now for breaking a symmetric-key cryptography algorithm, the function's domain is the key space, which is $$2^k$$ for a $$k$$-bit key.
+Running the algorithm gives us a time complexity of $$O(\sqrt{2^k}) = O(2^{k/2})$$, which is a quadratic speedup over classical brute-force attacks.
 This cryptanalysis improvement can be overcome by doubling the key size, which is a simple and effective mitigation strategy.
 
 In fact, Cloudflare researchers reported that even though doubling the symmetric key size will mitigate the theoretical risk completely, there are no [practical benefits](https://blog.cloudflare.com/pq-2025/#already-post-quantum-secure-symmetric-cryptography) to doing so. They argue that asymmetric cryptographic algorithms are the ones that are most at risk from quantum computing, and that doubling the key size of symmetric algorithms is not the most productive use of resources.
